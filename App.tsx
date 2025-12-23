@@ -110,18 +110,29 @@ const App: React.FC = () => {
         return (
           <div className="space-y-3 px-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
             {members.map((member) => (
-              <div key={member.id} className="cred-card p-4 rounded-2xl flex items-center justify-between">
+              <div key={member.id} className="cred-card p-4 rounded-2xl flex items-center justify-between relative overflow-hidden">
                 <div>
-                  <div className="font-bold text-zinc-900">{member.name}</div>
+                  <div className="flex items-center gap-2">
+                    <div className="font-bold text-zinc-900">{member.name}</div>
+                    {member.amountPaid >= (FEES_PER_MEMBER || 0) && (
+                      <div className="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded border border-emerald-200 uppercase tracking-tighter">PAID</div>
+                    )}
+                  </div>
                   <div className="text-[10px] uppercase font-black tracking-tight">
-                    {stats.feesPerMember && member.amountPaid >= stats.feesPerMember 
-                      ? <span className="text-emerald-500">FULLY PAID</span> 
-                      : <span className="text-amber-500">PAID: ₹{member.amountPaid}</span>}
+                    {member.amountPaid >= (FEES_PER_MEMBER || 0)
+                      ? <span className="text-emerald-500 font-bold">PAID: ₹{member.amountPaid}</span> 
+                      : <span className="text-amber-500 font-bold">PAID: ₹{member.amountPaid}</span>}
                   </div>
                 </div>
-                <div className={`text-lg font-mono font-black ${stats.feesPerMember && member.amountPaid >= stats.feesPerMember ? 'text-zinc-900' : 'text-zinc-400'}`}>
+                <div className={`text-lg font-mono font-black ${member.amountPaid >= (FEES_PER_MEMBER || 0) ? 'text-zinc-900' : 'text-zinc-400'}`}>
                   ₹{member.amountPaid}
                 </div>
+                {/* Visual Stamp Effect */}
+                {member.amountPaid >= (FEES_PER_MEMBER || 0) && (
+                  <div className="absolute -right-2 -bottom-2 opacity-[0.05] pointer-events-none rotate-[-12deg]">
+                    <CheckCircle2 size={64} className="text-emerald-900" />
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -236,7 +247,7 @@ const App: React.FC = () => {
           <StatsCard 
             label="Collection" 
             value={`₹${stats.totalCollected}`} 
-            subValue={stats.expectedTotal ? `Target: ₹${stats.expectedTotal}` : "Target: ₹7500"}
+            subValue={stats.expectedTotal ? `Target: ₹${stats.expectedTotal}` : `Target: ₹${stats.totalMembers * (FEES_PER_MEMBER || 500)}`}
             color="text-zinc-900"
             icon={<Wallet size={16} />}
             onClick={() => scrollToTabs('collection')}
