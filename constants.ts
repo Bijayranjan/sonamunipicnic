@@ -2,7 +2,7 @@
 export const PICNIC_DATE = new Date('2025-12-28T07:00:00');
 export const PICNIC_LOCATION_URL = "https://share.google/4a7G6O8pay9uFCnGN";
 export const PICNIC_SPOT_NAME = "Sonamuni Jungle Beach";
-export const FEES_PER_MEMBER: number | null = null; // null indicates 'Undecided'
+export const FEES_PER_MEMBER: number = 500; // Updated to 500
 
 /**
  * GOOGLE SHEET SETUP:
