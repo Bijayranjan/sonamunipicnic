@@ -236,7 +236,7 @@ const App: React.FC = () => {
           <StatsCard 
             label="Collection" 
             value={`₹${stats.totalCollected}`} 
-            subValue={stats.expectedTotal ? `Target: ₹${stats.expectedTotal}` : "Target: Undecided"}
+            subValue={stats.expectedTotal ? `Target: ₹${stats.expectedTotal}` : "Target: ₹7500"}
             color="text-zinc-900"
             icon={<Wallet size={16} />}
             onClick={() => scrollToTabs('collection')}
@@ -248,7 +248,7 @@ const App: React.FC = () => {
           />
           <StatsCard 
             label="Fee / Member" 
-            value={stats.feesPerMember ? `₹${stats.feesPerMember}` : "Undecided"} 
+            value={stats.feesPerMember ? `₹${stats.feesPerMember}` : "₹500"} 
             icon={<Wallet size={16} />}
           />
         </div>
